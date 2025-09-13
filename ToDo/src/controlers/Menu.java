@@ -1,64 +1,66 @@
 package controlers;
+
+import com.github.rickmvi.jtoolbox.console.Out;
+import com.github.rickmvi.jtoolbox.console.utils.ScannerUtils;
 import models.GerenciadorDeTarefas;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
+
+@lombok.Setter(value = lombok.AccessLevel.PUBLIC)
+@lombok.Getter(value = lombok.AccessLevel.PUBLIC)
 public class Menu {
-    private Scanner scanner;
+
     private int requisicaoMenu;
-    GerenciadorDeTarefas gerenciador;
+    private final GerenciadorDeTarefas gerenciador;
 
     public Menu() {
-        this.scanner = new Scanner(System.in);
-        this.requisicaoMenu = requisicaoMenu;
-        this.gerenciador = new GerenciadorDeTarefas();
+        ScannerUtils.init();
+        this.gerenciador = new GerenciadorDeTarefas("Estudar", "Estudar Java");
     }
 
     public void exibirMenu(){
         while (true){
             try {
-                System.out.println("====================================");
-                System.out.println("             TODO LIST");
-                System.out.println("====================================");
-                System.out.println();
-                System.out.println("[1] Exibir lista de tarefas.");
-                System.out.println("[2] Adiconar tarefas.");
-                System.out.println("[3] Marcar como concluido.");
-                System.out.println("[4] Remover tarefa.");
-                System.out.println("[5] Sair.");
-                System.out.println();
-                System.out.println("Escolha uma opção: ");
-                setRequisicaoMenu(scanner.nextInt());
+                Out.printLine(menu());
+                setRequisicaoMenu(ScannerUtils.nextInt());
 
-                if (requisicaoMenu == 1) {
-                    gerenciador.listarTarefas();
-                } else if (requisicaoMenu == 2) {
-                    gerenciador.adiconarTarefa();
-                } else if (requisicaoMenu == 3) {
-                    gerenciador.marcarComoConcluido();
-                } else if (requisicaoMenu == 4) {
-                    gerenciador.removerTarefa();
-                } else if (requisicaoMenu == 5) {
-                    System.out.println("Até a próxima.");
-                    System.out.println("Fechando...");
-                    break;
-                }else {
-                    System.out.println("Digite somente um número do menu.");
+                switch (getRequisicaoMenu()) {
+                    case 1 -> gerenciador.listarTarefas();
+                    case 2 -> gerenciador.adiconarTarefa();
+                    case 3 -> gerenciador.marcarComoConcluido();
+                    case 4 -> gerenciador.removerTarefa();
+                    case 5 -> {
+                            Out.printFormatted("Até a próxima.%n{}%n", "Fechando..");
+                            ScannerUtils.close();
+                            return;
+                    }
+                    default -> System.out.println("Digite somente um número do menu.");
                 }
-            } catch (InputMismatchException e ){
-                System.out.println("Digite apenas números, por favor!.");
-                scanner.next();
+
+            } catch (InputMismatchException e){
+                System.err.println("Digite apenas números, por favor!.");
+                ScannerUtils.next();
             }
-
         }
-
     }
 
-    public int getRequisicaoMenu() {
-        return requisicaoMenu;
-    }
-
-    public void setRequisicaoMenu(int requisicaoMenu) {
-        this.requisicaoMenu = requisicaoMenu;
+    @ApiStatus.Internal
+    @Contract(pure = true)
+    private @NotNull String menu() {
+        return """
+                ====================================
+                             TODO LIST
+                ====================================
+                [1] Exibir lista de tarefas.
+                [2] Adiconar tarefas.
+                [3] Marcar como concluido.
+                [4] Remover tarefa.
+                [5] Sair.
+                
+                Escolha uma opção:
+                """;
     }
 }
