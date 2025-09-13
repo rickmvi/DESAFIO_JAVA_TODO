@@ -16,7 +16,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="JToolbox-1.5.5" level="project" />
-    <orderEntry type="library" name="annotations-26.0.2" level="project" />
+    <orderEntry type="library" exported="" name="JToolbox-1.5.5" level="project" />
+    <orderEntry type="library" exported="" name="annotations-26.0.2" level="project" />
+    <orderEntry type="library" name="lombok-1.18.34" level="project" />
   </component>
 </module>

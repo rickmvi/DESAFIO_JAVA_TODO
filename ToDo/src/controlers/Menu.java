@@ -24,7 +24,7 @@ public class Menu {
     public void exibirMenu(){
         while (true){
             try {
-                Out.printLine(menu());
+                Out.print(menu());
                 setRequisicaoMenu(ScannerUtils.nextInt());
 
                 switch (getRequisicaoMenu()) {
@@ -60,7 +60,7 @@ public class Menu {
                 [4] Remover tarefa.
                 [5] Sair.
                 
-                Escolha uma opção:
+                Escolha uma opção: 
                 """;
     }
 }
