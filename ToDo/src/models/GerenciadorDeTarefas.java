@@ -48,7 +48,6 @@ public class GerenciadorDeTarefas {
     }
 
     public void adiconarTarefa(){
-        ScannerUtils.nextLine();
         Out.printLine("Digite o título da terefa: ");
         setTitulo(ScannerUtils.nextLine());
 
@@ -67,7 +66,6 @@ public class GerenciadorDeTarefas {
 
     public void marcarComoConcluido(){
         listarTarefas();
-        ScannerUtils.nextLine();
 
         Out.printLine("Digite o ID do item que deseja concluir: ");
         int id = ScannerUtils.nextInt();
@@ -84,7 +82,6 @@ public class GerenciadorDeTarefas {
 
     public void removerTarefa(){
         listarTarefas();
-        ScannerUtils.nextLine();
         Out.printLine("Digite o ID do item que deseja exluir: ");
         int id = ScannerUtils.nextInt();
 

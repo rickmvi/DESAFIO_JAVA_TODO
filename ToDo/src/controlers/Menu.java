@@ -26,6 +26,7 @@ public class Menu {
             try {
                 Out.print(menu());
                 setRequisicaoMenu(ScannerUtils.nextInt());
+                ScannerUtils.nextLine();
 
                 switch (getRequisicaoMenu()) {
                     case 1 -> gerenciador.listarTarefas();
@@ -42,7 +43,6 @@ public class Menu {
 
             } catch (InputMismatchException e){
                 System.err.println("Digite apenas números, por favor!.");
-                ScannerUtils.next();
             }
         }
     }
